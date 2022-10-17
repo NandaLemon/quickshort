@@ -32,7 +32,7 @@ namespace QuickSort
             Console.WriteLine("enter array elements");
             Console.WriteLine("\n===============");
 
-            for(int i =0;i<arr.Length;i++)
+            for(int i =0;i<n;i++)
             {
                 Console.Write("<"+(i+1)+">");
                 string s1 = Console.ReadLine();
@@ -65,11 +65,51 @@ namespace QuickSort
                     cmp_count++;
                 }
                 cmp_count++;
-                if(1 < j)
+                while ((arr[j]>pivot)&&(j>=low))
+                {
+                    j--;
+                    cmp_count++;
+                }
+                cmp_count++;
+                if(i<j)
                 {
                     swap(i,j);
+                    mov_count++;
                 }
             }
+            if(low < j)
+            {
+                swap(low, j);
+                mov_count++;
+            }
+            q_sort(low,j - 1);
+            q_sort(j + 1,high);
+        }
+        void display()
+        {
+            Console.WriteLine("\n-------------------");
+            Console.WriteLine(" Sorted Array Element");
+            Console.WriteLine("\n-------------------");
+
+            for (int j =0;j< n; j++)
+            {
+                Console.WriteLine(arr[j]);
+            }
+            Console.WriteLine("\nNumber of comparasion:",cmp_count);
+            Console.WriteLine("\nNumber of date movements:"+mov_count);
+        }
+        int getSize()
+        {
+            return n;
+        }
+        static void Main(string[]args)
+        {
+            Program myList = new Program();
+            myList.read();
+            myList.q_sort(0, myList.getSize() - 1);
+            myList.display();
+            Console.WriteLine("\n\nPress Enter to Exit.");
+            Console.Read();
         }
     }
 }
